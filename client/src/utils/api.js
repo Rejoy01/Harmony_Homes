@@ -3,12 +3,12 @@ import dayjs from "dayjs";
 import { toast } from "react-toastify";
 
 export const api = axios.create({
-  baseURL: "https://full-stack-real-estate-youtube.vercel.app/api",
+  baseURL: "http://localhost:8000/api",
 });
 
 export const getAllProperties = async () => {
   try {
-    const response = await api.get("/residency/allresd", {
+    const response = await api.get("/residency/allres", {
       timeout: 10 * 1000,
     });
 
