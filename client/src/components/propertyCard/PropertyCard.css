@@ -16,8 +16,9 @@
 }
 
 .r-card>img{
-    width: 100%;
-    max-width: 15rem;
+    width: 15rem;
+    height: 10rem;
+    border-radius: 10px;
 }
 
 .r-card>:nth-child(3){
