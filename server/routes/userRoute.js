@@ -1,14 +1,16 @@
 import express from "express";
 import { allBookings, bookVisit, cancelBooking, createUser, getAllFavorites, toFav } from "../controllers/userController.js";
+import jwtCheck from "../config/authConfig.js";
+
 
 const router = express.Router()
 
-router.post("/register",createUser)
-router.post("/bookVisit/:id",bookVisit)
+router.post("/register",jwtCheck,createUser)
+router.post("/bookVisit/:id",jwtCheck,bookVisit)
 router.post("/allBookings",allBookings)
-router.post("/removeBookings/:id",cancelBooking)
-router.post("/toFav/:rid",toFav)
-router.post("/allFav",getAllFavorites)
+router.post("/removeBookings/:id",jwtCheck,cancelBooking)
+router.post("/toFav/:rid",jwtCheck,toFav)
+router.post("/allFav",jwtCheck,getAllFavorites)
 
 
 export {router as userRoute}

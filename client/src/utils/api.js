@@ -38,22 +38,20 @@ export const getProperty = async (id) => {
   }
 };
 
-export const createUser = async (email, token) => {
+export const createUser = async(email,token)=>{
   try {
-    await api.post(
-      `/user/register`,
-      { email },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    await api.post('/user/register',{email},
+    {
+      headers:{
+        Authorization:`Bearer ${token}`
       }
-    );
+    })
   } catch (error) {
-    toast.error("Something went wrong, Please try again");
-    throw error;
+    toast.error("Something went wrong , pleas try again")
+    throw error
   }
-};
+}
+
 
 export const bookVisit = async (date, propertyId, email, token) => {
   try {
