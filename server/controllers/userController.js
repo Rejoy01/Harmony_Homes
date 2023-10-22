@@ -96,18 +96,18 @@ export const cancelBooking = asyncHandler(async(req,res)=>{
 //------------------------------
 export const toFav = asyncHandler(async(req,res)=>{
     const {email}=req.body;
-    const {rid} = req.params;
+    const {id} = req.params;
 
     try {
         const user = await prisma.user.findUnique({
             where:{email}
         })
-        if(user.favResidenciesID.includes(rid)){
+        if(user.favResidenciesID.includes(id)){
             const updateUser = await prisma.user.update({
                 where:{email},
                 data:{
                     favResidenciesID:{
-                        set:user.favResidenciesID.filter((id)=> id !== rid)
+                        set:user.favResidenciesID.filter((rid)=> rid !== id)
                     }
                 }
             })
@@ -117,7 +117,7 @@ export const toFav = asyncHandler(async(req,res)=>{
                 where:{email},
                 data:{
                     favResidenciesID:{
-                        push:rid
+                        push:id
                     }
                 }
             })

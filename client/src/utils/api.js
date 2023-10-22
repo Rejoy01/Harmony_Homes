@@ -70,14 +70,14 @@ export const bookVisit = async (date, propertyId, email, token) => {
     );
   } catch (error) {
     toast.error("Something went wrong, Please try again");
-    throw error;
+    console.log(error.message);
   }
 };
 
 export const removeBooking = async (id, email, token) => {
   try {
     await api.post(
-      `/user/removeBooking/${id}`,
+      `/user/removeBookings/${id}`,
       {
         email,
       },
@@ -107,8 +107,8 @@ export const toFav = async (id, email, token) => {
         },
       }
     );
-  } catch (e) {
-    throw e;
+  } catch (error) {
+    throw error;
   }
 };
 

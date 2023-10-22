@@ -8,7 +8,7 @@ import { MantineProvider } from "@mantine/core";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <MantineProvider>
+
       <Auth0Provider
        domain="dev-sz27uxgzy3713vpw.us.auth0.com"
        clientId="MOZXhXU4nsTmbnASdAO1dKg6SUZNQvLW"
@@ -18,8 +18,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
        audience ="http://localhost:8000"
        scope="openid profile email"
       >
+        <MantineProvider>
+
         <App />
+        </MantineProvider>
       </Auth0Provider>
-    </MantineProvider>
+    
   </React.StrictMode>
 );

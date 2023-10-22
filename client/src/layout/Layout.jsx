@@ -11,6 +11,8 @@ import { createUser } from "../utils/api";
 
 const Layout = () => {
 
+      // useFavourites()
+
       const{isAuthenticated, user,getAccessTokenWithPopup} = useAuth0()
       const {setUserDetails} = useContext(UserDetailContext)
 
@@ -30,8 +32,9 @@ const Layout = () => {
           })
           localStorage.setItem("access_token",res)
           setUserDetails((...prev)=>({...prev, token:res}))
-          mutate(res)
           console.log(res);
+          mutate(res)
+          
         }
 
 
