@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useRef } from 'react'
 import UserDetailContext from '../context/UserDetailContext'
 import { useQueries, useQuery } from 'react-query'
 import { useAuth0 } from '@auth0/auth0-react'
-import { getAllFav } from '../utils/api'
+import { getAllBookings } from '../utils/api'
 
-const useFavourites = () => {
+const useBookings = () => {
 
     const {userDetails,setUserDetails} = useContext(UserDetailContext)
     const queryRef = useRef()
@@ -12,9 +12,9 @@ const useFavourites = () => {
 
 
     const {data,isLoading,isError,refetch} =useQuery({
-        queryKey:"allFavourites",
-        queryFn:()=>getAllFav(user?.email, userDetails?.token),
-        onSuccess:(data)=>setUserDetails((prev)=>({...prev,favourites:data})),
+        queryKey:"allBookings",
+        queryFn:()=>getAllBookings(user?.email, userDetails?.token),
+        onSuccess:(data)=>setUserDetails((prev)=>({...prev,bookings:data})),
         enabled:user!==undefined,
         staleTime:30000
 
@@ -31,4 +31,4 @@ const useFavourites = () => {
      data,isError,isLoading,refetch
   }
 }
-export default useFavourites
+export default useBookings

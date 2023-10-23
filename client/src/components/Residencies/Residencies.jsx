@@ -6,8 +6,8 @@ import { sliderSettings } from "../../utils/common";
 import {PuffLoader} from 'react-spinners'
 import data from "../../utils/slider.json";
 
-import PropertyCard from "../propertyCard/PropertyCard";
-import useProperties from "../../../hooks/useProperties"
+import PropertyCard from "../../components/propertyCard/PropertyCard";
+import useProperties from "../../hooks/useProperties"
 const Residencies = () => {
 
   const {data,isError,isLoading} =useProperties()

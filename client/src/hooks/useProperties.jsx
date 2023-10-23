@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { getAllProperties } from '../src/utils/api'
+import { getAllProperties } from '../utils/api'
 
 const useProperties = () => {
 
