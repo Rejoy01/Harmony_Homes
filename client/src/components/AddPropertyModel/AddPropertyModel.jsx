@@ -11,6 +11,30 @@ const AddPropertyModel = ({ opened, setOpened }) => {
 
   const { user } = useAuth0();
 
+  const userEmail = (async () => {
+    try {
+      const { user } = useAuth0();; // Replace with your method of getting user data
+  
+      if (user && user.email) {
+        return user.email;
+      } else {
+        console.log("User or email not available");
+        return null; // or any other default value
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      return null; // or handle the error as needed
+    }
+  })();
+  
+  userEmail.then((email) => {
+    if (email !== null) {
+      console.log("User's email:", email);
+    }
+  });
+  
+  
+
   const [propertyDetails, setPropertyDetails] = useState({
     title: "",
     description: "",
@@ -24,9 +48,10 @@ const AddPropertyModel = ({ opened, setOpened }) => {
       parkings: 0,
       bathrooms: 0,
     },
-    userEmail: user?.email,
+    userEmail: userEmail,
   });
-
+  console.log(propertyDetails);
+  
   const nextStep = () => {
     setActive((current) => (current < 4 ? current + 1 : current));
   };

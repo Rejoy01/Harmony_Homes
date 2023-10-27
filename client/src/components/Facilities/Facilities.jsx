@@ -1,7 +1,12 @@
 import { Box, Button, Group, NumberInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import React from 'react'
+import React, { useContext } from 'react'
 import useProperties from "../../hooks/useProperties"
+import { createResidency } from '../../utils/api';
+import { useAuth0 } from '@auth0/auth0-react';
+import UserDetailContext from '../../context/UserDetailContext'
+import { useMutation } from 'react-query';
+import { toast } from 'react-toastify';
 const Facilities = ({ prevStep, nextStep, propertyDetails, setPropertyDetails , setOpened}) => {
     const form = useForm({
         initialValues: {
@@ -19,6 +24,7 @@ const Facilities = ({ prevStep, nextStep, propertyDetails, setPropertyDetails , 
       const { bedrooms, parkings, bathrooms } = form.values;
 
 
+      const { user } = useAuth0();
 
     
       const handleSubmit = () => {
@@ -26,15 +32,15 @@ const Facilities = ({ prevStep, nextStep, propertyDetails, setPropertyDetails , 
         if (!hasErrors) {
           setPropertyDetails((prev) => ({
             ...prev,
-            facilities: { bedrooms, parkings, bathrooms },
+            facilities: { bedrooms, parkings, bathrooms } ,
           }));
+          console.log(user.email);
           mutate();
         }
       };
     
       // ==================== upload logic
-      const { user } = useAuth0();
-
+ 
 
       const {
         userDetails: { token },
@@ -65,6 +71,8 @@ const Facilities = ({ prevStep, nextStep, propertyDetails, setPropertyDetails , 
             },
             userEmail: user?.email,
           })
+
+          
           setOpened(false)
           setActiveStep(0)
           refetchProperties()
