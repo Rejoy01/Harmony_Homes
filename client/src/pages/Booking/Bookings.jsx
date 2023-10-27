@@ -1,14 +1,18 @@
-import React, { useState } from "react";
-import "./Properties.css";
+import React, { useState, useContext } from "react";
+import "../Properties/Properties.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import useProperties from "../../hooks/useProperties";
 import PropertyCard from "../../components/propertyCard/PropertyCard";
-
+import UserDetailContext from "../../context/UserDetailContext";
 import { PuffLoader } from "react-spinners";
 import { property } from "lodash";
 
-const Properties = () => {
+const Bookings = () => {
   const [filter, setFilter] = useState("");
+
+  const {
+    userDetails: { bookings },
+  } = useContext(UserDetailContext);
 
   const { data, isError, isLoading } = useProperties();
   if (isError) {
@@ -31,6 +35,12 @@ const Properties = () => {
       </div>
     );
   }
+  // console.log("data",data);
+  // console.log("bookings ", bookings);
+
+  const filteredData = data && bookings
+  ? data.filter((property) => bookings.map((booking) => booking.id).includes(property.id))
+  : [];
 
   return (
     <div className="wrapper">
@@ -39,20 +49,20 @@ const Properties = () => {
         <div className="paddings flexCenter Properties">
           {
             // data.map((card,i)=>(<PropertyCard card={card} key={i} />))
-            data
-            .filter(
-              (property) =>
-                property.title.toLowerCase().includes(filter.toLowerCase()) ||
-                property.city.toLowerCase().includes(filter.toLowerCase()) ||
-                property.country.toLowerCase().includes(filter.toLowerCase())
-            )
-            .map((card, i) => (
-              <PropertyCard card={card} key={i} />
-            ))
+            filteredData
+              .filter(
+                (property) =>
+                  property.title.toLowerCase().includes(filter.toLowerCase()) ||
+                  property.city.toLowerCase().includes(filter.toLowerCase()) ||
+                  property.country.toLowerCase().includes(filter.toLowerCase())
+              )
+              .map((card, i) => (
+                <PropertyCard card={card} key={i} />
+              ))
           }
         </div>
       </div>
     </div>
   );
 };
-export default Properties;
+export default Bookings;

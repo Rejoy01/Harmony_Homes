@@ -1,5 +1,5 @@
 import { Container, Modal, Stepper } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddLocation from "../AddLocation/AddLocation";
 import { useAuth0 } from "@auth0/auth0-react";
 import UploadImage from "../UploadImage/UploadImage";
@@ -9,31 +9,7 @@ import Facilities from "../Facilities/Facilities";
 const AddPropertyModel = ({ opened, setOpened }) => {
   const [active, setActive] = useState(0);
 
-  const { user } = useAuth0();
-
-  const userEmail = (async () => {
-    try {
-      const { user } = useAuth0();; // Replace with your method of getting user data
-  
-      if (user && user.email) {
-        return user.email;
-      } else {
-        console.log("User or email not available");
-        return null; // or any other default value
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      return null; // or handle the error as needed
-    }
-  })();
-  
-  userEmail.then((email) => {
-    if (email !== null) {
-      console.log("User's email:", email);
-    }
-  });
-  
-  
+  const { user } = useAuth0(); 
 
   const [propertyDetails, setPropertyDetails] = useState({
     title: "",
@@ -48,9 +24,19 @@ const AddPropertyModel = ({ opened, setOpened }) => {
       parkings: 0,
       bathrooms: 0,
     },
-    userEmail: userEmail,
+    userEmail: user?.email,
   });
-  console.log(propertyDetails);
+
+  useEffect(() => {
+    if (user) {
+      setPropertyDetails((prevDetails) => ({
+        ...prevDetails,
+        userEmail: user.email,
+      }));
+    }
+  }, [user]);
+
+  // console.log(propertyDetails);
   
   const nextStep = () => {
     setActive((current) => (current < 4 ? current + 1 : current));
@@ -103,6 +89,7 @@ const AddPropertyModel = ({ opened, setOpened }) => {
                propertyDetails={propertyDetails}
                setOpened={setOpened}
                setPropertyDetails={setPropertyDetails}
+               setActive={setActive }
 
             />
           </Stepper.Step>

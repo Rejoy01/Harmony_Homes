@@ -17,8 +17,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ReactQueryDevtools } from "react-query/devtools";
-import Property from "./pages/property/property";
+import Property from "./pages/property/Property";
 import UserDetailContext from "./context/UserDetailContext";
+import { MantineProvider } from "@mantine/core";
+import Bookings from "./pages/Booking/Bookings"
 
 function App() {
   const queryClient = new QueryClient();
@@ -31,8 +33,10 @@ function App() {
 
   return (
     <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
+      
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
+        
           <Suspense fallback={<div>Loading.....</div>}>
             
             <Routes>
@@ -43,6 +47,7 @@ function App() {
                   <Route index element={<Properties />} />
                   <Route path=":propertyId" element={<Property />} />
                 </Route>
+                <Route path="/bookings" element={<Bookings />} />
               </Route>
             </Routes>
           </Suspense>

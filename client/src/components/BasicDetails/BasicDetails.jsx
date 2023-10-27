@@ -14,7 +14,11 @@ const BasicDetails = ({ prevStep, nextStep, propertyDetails, setPropertyDetails 
         title: (value) => validateString(value),
         description: (value) => validateString(value),
         price: (value) =>
-            value < 1000 ? "Must be greater than 999 dollars" : null,
+            {
+              if(value <1000){
+                return "Price must be at least 1000"
+              }
+            }
       },
     });
   
