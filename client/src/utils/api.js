@@ -183,3 +183,4 @@ export const createResidency = async (data, token) => {
     throw error
   }
 }
+

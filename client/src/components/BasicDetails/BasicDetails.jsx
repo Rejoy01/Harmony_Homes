@@ -27,8 +27,10 @@ const BasicDetails = ({ prevStep, nextStep, propertyDetails, setPropertyDetails 
   
     const handleSubmit = ()=> {
       const {hasErrors} = form.validate()
+      
       if(!hasErrors) {
-       setPropertyDetails((prev)=> ({...prev, title, description, price}))
+        const priceAsNumber = parseFloat(price)
+       setPropertyDetails((prev)=> ({...prev, title, description, price:priceAsNumber}))
        nextStep()
       }
      }

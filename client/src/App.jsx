@@ -21,6 +21,9 @@ import Property from "./pages/property/Property";
 import UserDetailContext from "./context/UserDetailContext";
 import { MantineProvider } from "@mantine/core";
 import Bookings from "./pages/Booking/Bookings"
+import Favourites from "./pages/Favourites/Favourites";
+import Myproperties from "./pages/MyProperties/Myproperties";
+import MyProperty from "./pages/MyProperty/Myproperty";
 
 function App() {
   const queryClient = new QueryClient();
@@ -48,6 +51,11 @@ function App() {
                   <Route path=":propertyId" element={<Property />} />
                 </Route>
                 <Route path="/bookings" element={<Bookings />} />
+                <Route path="/favourites" element={<Favourites />} />
+                <Route path="/myproperties">
+                  <Route index element={<Myproperties />} />
+                  <Route path=":propertyId" element={<MyProperty />} />
+                </Route>
               </Route>
             </Routes>
           </Suspense>

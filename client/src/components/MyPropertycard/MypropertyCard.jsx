@@ -1,17 +1,17 @@
 import React from 'react'
-import './PropertyCard.css'
+import '../propertyCard/PropertyCard.css'
 import {AiFillHeart} from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import {truncate} from 'lodash'
 import Heart from '../Heart/Heart'
 
-const PropertyCard = ({card}) => {
+const MypropertyCard = ({card}) => {
 
   const navigate = useNavigate()
 
   return (
    
-    <div className="flexColStart r-card" onClick={()=> navigate(`../properties/${card.id}`)}>
+    <div className="flexColStart r-card" onClick={()=> navigate(`../Myproperties/${card.id}`)}>
       <div className='Heart'>
       <Heart id={card?.id} />
       </div>
@@ -29,4 +29,4 @@ const PropertyCard = ({card}) => {
   )
 }
 
-export default PropertyCard
+export default MypropertyCard
