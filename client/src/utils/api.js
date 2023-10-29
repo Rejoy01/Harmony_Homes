@@ -184,3 +184,16 @@ export const createResidency = async (data, token) => {
   }
 }
 
+export const removeResidency = async (id, token) => {
+  try {
+    await api.delete(`/residency/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    toast.error("Failed to delete the residency, please try again");
+    throw error;
+  }
+};
+

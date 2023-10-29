@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
-import { getProperty, removeBooking } from "../../utils/api";
+import { getProperty, removeBooking, removeResidency } from "../../utils/api";
 import { PuffLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import "../property/Property.css";
@@ -16,27 +16,30 @@ import BookingModel from "../../components/BookingModel/BookingModel";
 import UserDetailContext from "../../context/UserDetailContext";
 import { Button } from "@mantine/core";
 import Heart from "../../components/Heart/Heart";
+import { useNavigate } from "react-router-dom";
 
 const MyProperty = () => {
+
+    const navigate = useNavigate()
+
   const {
     userDetails: { token, bookings },
     setUserDetails,
   } = useContext(UserDetailContext);
   // console.log(bookings);
 
+//   //Cancel Booking
+//   const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
+//     mutationFn: () => removeBooking(id, user?.email, token),
+//     onSuccess: () => {
+//       setUserDetails((prev) => ({
+//         ...prev,
+//         bookings: [...prev.bookings].filter((bk) => bk.id !== id),
+//       }));
 
-  //Cancel Booking
-  const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
-    mutationFn: () => removeBooking(id, user?.email, token),
-    onSuccess: () => {
-      setUserDetails((prev) => ({
-        ...prev,
-        bookings: [...prev.bookings].filter((bk) => bk.id !== id),
-      }));
-
-      toast.success("Booking Cancelled", { position: "bottom-right" });
-    },
-  });
+//       toast.success("Booking Cancelled", { position: "bottom-right" });
+//     },
+//   });
 
   const { user } = useAuth0();
 
@@ -47,6 +50,16 @@ const MyProperty = () => {
   const { data, isLoading, isError } = useQuery(["res", id], () =>
     getProperty(id)
   );
+
+  const { mutate: deleteResidency, isLoading: deleting } = useMutation({
+    mutationFn: () => removeResidency(id, token), // Define your removeResidency API function
+    onSuccess: () => {
+
+      toast.success("Residency Deleted", { position: "bottom-right" });
+        navigate("/myproperties",{replace : true})
+    },
+  });
+
   const [modelOpened, setModelOpened] = useState(false);
   const { validateLogin } = useAuthCheck();
   if (isLoading) {
@@ -76,7 +89,6 @@ const MyProperty = () => {
         {/* like BUtton */}
         <div className="like">
           <Heart id={id} />
-          
         </div>
 
         {/* image */}
@@ -120,39 +132,22 @@ const MyProperty = () => {
             <div className="flexStart" style={{ gap: "1rem" }}>
               <MdLocationPin size={25} />
               <span className="secondaryText">
-                {data?.address}{" "}
-                {data?.city}{" "}
-                {data?.country}
+                {data?.address} {data?.city} {data?.country}
               </span>
             </div>
 
-            {/* booking button  */}
-            {bookings?.map((bookings) => bookings.id).includes(id) ? (
-              <>
-                  <Button
-                  variant="outline"
-                  w={"100%"}
-                  color="red"
-                  onClick={() => cancelBooking()}
-                  disabled={cancelling}
-                >
-                  Cancel Booking
-                </Button>
-                <span>
-                  Your Visit already booked for date{" "}
-                  {bookings?.filter((booking) => booking.id === id)[0].date}
-                </span>
-              </>
-            ) : (
-              <button
+         
+            {/* Delete button */}
+            <Button
                 className="button"
-                onClick={() => {
-                  validateLogin() && setModelOpened(true);
-                }}
-              >
-                Book Your Visit
-              </button>
-            )}
+              variant="outline"
+              w={"100%"}
+              color="red"
+              onClick={() => deleteResidency()}
+              disabled={deleting}
+            >
+              {deleting ? "Deleting..." : "Delete Residency"}
+            </Button>
 
             <BookingModel
               opened={modelOpened}
