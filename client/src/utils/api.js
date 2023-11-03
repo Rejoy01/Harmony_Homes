@@ -197,3 +197,19 @@ export const removeResidency = async (id, token) => {
   }
 };
 
+export const updatePropertySoldStatus = async (id, token) => {
+  try {
+    await api.put(
+      `/residency/${id}`,
+      
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    toast.error("Failed to update the sold status, please try again");
+    throw error;
+  }
+};

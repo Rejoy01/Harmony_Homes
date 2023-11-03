@@ -6,10 +6,12 @@ import PropertyCard from "../../components/propertyCard/PropertyCard";
 
 import { PuffLoader } from "react-spinners";
 import { property } from "lodash";
+import { useAuth0 } from "@auth0/auth0-react";
+import MypropertyCard from "../../components/MyPropertycard/MypropertyCard";
 
 const Properties = () => {
   const [filter, setFilter] = useState("");
-
+  const {user} = useAuth0()
   const { data, isError, isLoading } = useProperties();
   if (isError) {
     return (
@@ -40,16 +42,21 @@ const Properties = () => {
           {
             // data.map((card,i)=>(<PropertyCard card={card} key={i} />))
             data
+            .filter(property => !property.sold)
             .filter(
               (property) =>
+                !property.sold &&
                 property.title.toLowerCase().includes(filter.toLowerCase()) ||
                 property.city.toLowerCase().includes(filter.toLowerCase()) ||
                 property.country.toLowerCase().includes(filter.toLowerCase())
             )
-            .map((card, i) => (
-              <PropertyCard card={card} key={i} />
-            ))
-          }
+            .map((card, i) => {
+              if (user?.email === card.userEmail) {
+                return <MypropertyCard card={card} key={i} />;
+              } else {
+                return <PropertyCard card={card} key={i} />;
+              }
+            })}
         </div>
       </div>
     </div>

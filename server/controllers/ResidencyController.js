@@ -72,3 +72,34 @@ export const deleteResidency = asyncHandler(async (req, res) => {
       throw new Error(error.message);
     }
   })
+
+  export const markResidencyAsSold = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const existingResidency = await prisma.residency.findUnique({
+        where: { id },
+      });
+
+      if (!existingResidency) {
+        return res.status(404).send({ message: "Residency not found" });
+      }
+
+      const currentSoldStatus = existingResidency.sold;
+      const updatedSoldStatus = !currentSoldStatus; // Toggle the sold status
+
+      const updatedResidency = await prisma.residency.update({
+        where: { id },
+        data: {
+          sold: updatedSoldStatus, // Update 'sold' status based on the toggle value
+        },
+      });
+  
+      res.send({
+        message: "Residency sold status updated successfully",
+        updatedResidency,
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+});

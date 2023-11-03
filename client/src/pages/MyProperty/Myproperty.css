@@ -1,0 +1,15 @@
+
+  .sold-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 0, 0, 0.8);
+    color: rgb(233, 227, 227);
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    
+    border-radius: 5px;
+    z-index: 1;
+  }

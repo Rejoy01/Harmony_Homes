@@ -38,8 +38,8 @@ const Header = () => {
       <div className="flexCenter paddings innerWidth h-container">
         {/* LOgo */}
         <Link to="/">
-          <img src="./logo.png" alt="" width={200} />
-        </Link>
+  <img src={`./logo.png?${new Date().getTime()}`} alt="" width={200} />
+</Link>
 
         <OutSideClickHandler
           onOutsideClick={() => {
@@ -80,9 +80,3 @@ const Header = () => {
 };
 
 export default Header;
-{/* <a href="">
-          Residencies
-        </a>
-        <a href="">Our Value</a>
-        <a href="">Contact Us</a>
-        <a href="">Get Started</a> */}

@@ -96,17 +96,17 @@ const Property = () => {
               {/* bathrooms               */}
               <div className="flexStart facility">
                 <FaShower size={20} color="#1F3E72" />
-                <span>{data?.facilities?.bathrooms}Bathrooms</span>
+                <span>{data?.facilities?.bathrooms}{" "}Bathrooms</span>
               </div>
               {/* parkings */}
               <div className="flexStart facility">
                 <AiTwotoneCar size={20} color="#1F3E72" />
-                <span>{data?.facilities?.parkings}Parking</span>
+                <span>{data?.facilities?.parkings}{" "}Parking</span>
               </div>
               {/* rooms */}
               <div className="flexStart facility">
                 <MdMeetingRoom size={20} color="#1F3E72" />
-                <span>{data?.facilities?.bedrooms}room</span>
+                <span>{data?.facilities?.bedrooms}{" "}room</span>
               </div>
             </div>
 

@@ -4,7 +4,7 @@ import {AiFillHeart} from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import {truncate} from 'lodash'
 import Heart from '../Heart/Heart'
-
+import './MypropertyCard.css'
 const MypropertyCard = ({card}) => {
 
   const navigate = useNavigate()
@@ -15,9 +15,13 @@ const MypropertyCard = ({card}) => {
       <div className='Heart'>
       <Heart id={card?.id} />
       </div>
+      {/* Conditionally display "Sold Out" over the image when card.sold is true */}
       
       <img src={card.image} alt="" />
       <span className="secondaryText r-price">
+      {card.sold ? (
+        <p className="sold-out-overlay">Sold Out</p>
+      ) : null}
         <span style={{ color: "orange" }}>$</span>
         <span>{card.price}</span>
       </span>

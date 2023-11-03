@@ -1,7 +1,12 @@
 import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
-import { getProperty, removeBooking, removeResidency } from "../../utils/api";
+import {
+  getProperty,
+  removeBooking,
+  removeResidency,
+  updatePropertySoldStatus,
+} from "../../utils/api";
 import { PuffLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import "../property/Property.css";
@@ -17,10 +22,10 @@ import UserDetailContext from "../../context/UserDetailContext";
 import { Button } from "@mantine/core";
 import Heart from "../../components/Heart/Heart";
 import { useNavigate } from "react-router-dom";
+import "./Myproperty.css";
 
 const MyProperty = () => {
-
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     userDetails: { token, bookings },
@@ -28,18 +33,18 @@ const MyProperty = () => {
   } = useContext(UserDetailContext);
   // console.log(bookings);
 
-//   //Cancel Booking
-//   const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
-//     mutationFn: () => removeBooking(id, user?.email, token),
-//     onSuccess: () => {
-//       setUserDetails((prev) => ({
-//         ...prev,
-//         bookings: [...prev.bookings].filter((bk) => bk.id !== id),
-//       }));
+  //   //Cancel Booking
+  //   const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
+  //     mutationFn: () => removeBooking(id, user?.email, token),
+  //     onSuccess: () => {
+  //       setUserDetails((prev) => ({
+  //         ...prev,
+  //         bookings: [...prev.bookings].filter((bk) => bk.id !== id),
+  //       }));
 
-//       toast.success("Booking Cancelled", { position: "bottom-right" });
-//     },
-//   });
+  //       toast.success("Booking Cancelled", { position: "bottom-right" });
+  //     },
+  //   });
 
   const { user } = useAuth0();
 
@@ -54,9 +59,23 @@ const MyProperty = () => {
   const { mutate: deleteResidency, isLoading: deleting } = useMutation({
     mutationFn: () => removeResidency(id, token), // Define your removeResidency API function
     onSuccess: () => {
-
       toast.success("Residency Deleted", { position: "bottom-right" });
-        navigate("/myproperties",{replace : true})
+      navigate("/myproperties", { replace: true });
+    },
+  });
+
+  const { mutate: updatePropertySold, isLoading: updatingSold } = useMutation({
+    mutationFn: (isSold) => updatePropertySoldStatus(id, isSold, token),
+    onSuccess: () => {
+      // Handle success, e.g., show a success message or update local state
+      toast.success("Property Sold Status Updated", {
+        position: "bottom-right",
+      });
+      navigate("/myproperties", { replace: true });
+    },
+    onError: (error) => {
+      // Handle errors, e.g., show an error message
+      toast.error("Failed to update property sold status");
     },
   });
 
@@ -82,7 +101,7 @@ const MyProperty = () => {
       </div>
     );
   }
-  console.log(data);
+
   return (
     <div className="wrapper">
       <div className="flexColStart paddings innerWidth property-container">
@@ -92,7 +111,9 @@ const MyProperty = () => {
         </div>
 
         {/* image */}
+
         <img src={data?.image} alt="home image" />
+        {data?.sold && <div className="sold-message primaryText">Sold Out</div>}
 
         <div className="flexCenter property-details">
           {/* left */}
@@ -109,17 +130,17 @@ const MyProperty = () => {
               {/* bathrooms               */}
               <div className="flexStart facility">
                 <FaShower size={20} color="#1F3E72" />
-                <span>{data?.facilities?.bathrooms}Bathrooms</span>
+                <span>{data?.facilities?.bathrooms} Bathrooms</span>
               </div>
               {/* parkings */}
               <div className="flexStart facility">
                 <AiTwotoneCar size={20} color="#1F3E72" />
-                <span>{data?.facilities?.parkings}Parking</span>
+                <span>{data?.facilities?.parkings} Parking</span>
               </div>
               {/* rooms */}
               <div className="flexStart facility">
                 <MdMeetingRoom size={20} color="#1F3E72" />
-                <span>{data?.facilities?.bedrooms}room</span>
+                <span>{data?.facilities?.bedrooms} room</span>
               </div>
             </div>
 
@@ -136,10 +157,9 @@ const MyProperty = () => {
               </span>
             </div>
 
-         
             {/* Delete button */}
             <Button
-                className="button"
+              className="button"
               variant="outline"
               w={"100%"}
               color="red"
@@ -149,12 +169,25 @@ const MyProperty = () => {
               {deleting ? "Deleting..." : "Delete Residency"}
             </Button>
 
-            <BookingModel
-              opened={modelOpened}
-              setOpened={setModelOpened}
-              propertyId={id}
-              email={user?.email}
-            />
+            {/* sold */}
+            <Button
+              className="button"
+              variant="outline"
+              w={"100%"}
+              color="red"
+              onClick={() => {
+                // Toggle the sold status
+                updatePropertySold();
+              }}
+              disabled={updatingSold}
+            >
+              {updatingSold
+                ? "Updating..."
+                : data.sold
+                ? "Sold Out"
+                : "Set as Sold"}
+            </Button>
+         
           </div>
 
           {/* right */}
