@@ -23,7 +23,7 @@ import { MantineProvider } from "@mantine/core";
 import Bookings from "./pages/Booking/Bookings"
 import Favourites from "./pages/Favourites/Favourites";
 import Myproperties from "./pages/MyProperties/Myproperties";
-import MyProperty from "./pages/MyProperty/Myproperty";
+import MyProperty from "./pages/MyProperty/MyProperty";
 
 function App() {
   const queryClient = new QueryClient();
