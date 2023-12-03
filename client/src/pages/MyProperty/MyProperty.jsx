@@ -9,7 +9,6 @@ import {
 } from "../../utils/api";
 import { PuffLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import "../property/Property.css";
 import { AiFillHeart } from "react-icons/ai";
 import { FaShower } from "react-icons/fa";
 import { AiTwotoneCar } from "react-icons/ai";
