@@ -4,7 +4,7 @@ import {AiFillHeart} from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import {truncate} from 'lodash'
 import Heart from '../Heart/Heart'
-import './MypropertyCard.css'
+import './MyPropertyCard.css'
 const MypropertyCard = ({card}) => {
 
   const navigate = useNavigate()
