@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       domain="dev-sz27uxgzy3713vpw.us.auth0.com"
       clientId="MOZXhXU4nsTmbnASdAO1dKg6SUZNQvLW"
       authorizationParams={{
-        redirect_uri: "https://harmony-homes-ab8i-lwibityse-rejos-projects.vercel.app/",
+        redirect_uri: "https://harmony-homes.vercel.app/",
       }}
       audience="http://localhost:8000"
       scope="openid profile email"
