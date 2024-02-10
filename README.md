@@ -1,4 +1,4 @@
-## You can access the live version of Harmony Homes [here](https://harmony-homes-rejos-projects.vercel.app/) 
+## You can access the live version of Harmony Homes [Here](https://harmony-homes-rejos-projects.vercel.app/) 
 
 # Harmony Homes: Your Ultimate Property Hub
 Welcome to Harmony Homes, your go-to platform for exploring and discovering properties seamlessly. This project aims to provide users with a user-friendly experience to explore available properties, book visits, and interact with property details effortlessly.
@@ -37,7 +37,7 @@ To get started with Harmony Homes, follow the installation instructions below.
 
 ## Installation
 1. Clone the repository: 
-git clone https:[//github.com/your-username/harmony-homes.git](https://github.com/Rejoy01/Harmony_Homes.git)
+git clone https:[//github.com/Rejoy01/harmony-homes.git](https://github.com/Rejoy01/Harmony_Homes.git)
 2. Navigate to the project directory:
 cd harmony-homes
 3. Install dependencies:
