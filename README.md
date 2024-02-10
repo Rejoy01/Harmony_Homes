@@ -1,16 +1,16 @@
-Harmony Homes: Your Ultimate Property Hub
+#Harmony Homes: Your Ultimate Property Hub
 Welcome to Harmony Homes, your go-to platform for exploring and discovering properties seamlessly. This project aims to provide users with a user-friendly experience to explore available properties, book visits, and interact with property details effortlessly.
 
-Table of Contents
-Objective
-Key Features
-Technologies Used
-Getting Started
-Installation
-Usage
-Contributing
-License
-Objective
+#Table of Contents
+-Objective
+-Key Features
+-Technologies Used
+-Getting Started
+-Installation
+-Usage
+-Contributing
+-License
+-Objective
 The primary objective of this project is to create a user-friendly marketing website for properties, offering a seamless experience for users to explore available properties, book visits, and interact with property details.
 
 Key Features
