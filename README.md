@@ -37,7 +37,7 @@ To get started with Harmony Homes, follow the installation instructions below.
 
 ## Installation
 1. Clone the repository: 
-git clone https://github.com/your-username/harmony-homes.git
+git clone https:[//github.com/your-username/harmony-homes.git](https://github.com/Rejoy01/Harmony_Homes.git)
 2. Navigate to the project directory:
 cd harmony-homes
 3. Install dependencies:
